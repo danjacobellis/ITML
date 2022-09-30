@@ -1,4 +1,4 @@
-# Index of handouts
+# Index
 
 ```{toctree}
 :maxdepth: 2
