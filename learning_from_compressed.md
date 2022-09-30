@@ -27,8 +27,7 @@ In my project, I hope to tackle a number of questions regarding learning from co
 ## References
 
 1. [Gueguen, Lionel, et al. "Faster neural networks straight from jpeg." Advances in Neural Information Processing Systems 31 (2018).][1]
-
-2.[Wu, Chao-Yuan, et al. "Compressed video action recognition." Proceedings of the IEEE conference on computer vision and pattern recognition. 2018.][2]
+2. [Wu, Chao-Yuan, et al. "Compressed video action recognition." Proceedings of the IEEE conference on computer vision and pattern recognition. 2018.][2]
 
 [1]: https://proceedings.neurips.cc/paper/2018/hash/7af6266cc52234b5aa339b16695f7fc4-Abstract.html
 
