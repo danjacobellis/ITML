@@ -7,7 +7,7 @@ extensions = [
 
 templates_path = ['_templates']
 
-exclude_patterns = ['_build', "README.md"]
+exclude_patterns = ['_build', "README.md", 'experiments']
 
 # -- Options for HTML output -------------------------------------------------
 
