@@ -6,9 +6,14 @@ def build():
     
     if exists("docs"):
         rmtree("docs")
-    result = run(["sphinx-build", ".","docs"],capture_output=True)
+    result = run(["sphinx-build", ".", "docs"],capture_output=True)
     print(result.stdout.decode("utf-8"))
+    if exists("jupyter_execute"):
+        rmtree("jupyter_execute")
     Path("docs/.nojekyll").touch()
+    
+    result = run("jupyter-nbconvert --to slides discrete_representation_learning.ipynb --output docs/discrete_representation_learning --TagRemovePreprocessor.enabled=True --TagRemovePreprocessor.remove_cell_tags='remove-nb-cell'",capture_output=True, shell=True)
+    print(result.stdout.decode("utf-8"))
     
 if __name__ == '__main__':
     build()

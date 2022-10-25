@@ -1,4 +1,4 @@
-project = 'Compressed Audio'
+project = 'Information Theory and ML'
 
 extensions = [
     "myst_nb",
