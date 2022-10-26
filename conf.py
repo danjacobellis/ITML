@@ -1,4 +1,4 @@
-project = 'Information Theory and ML'
+project = 'Information Theory and Machine Learning'
 
 extensions = [
     "myst_nb",
