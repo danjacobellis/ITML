@@ -1044,7 +1044,12 @@
   {
    "cell_type": "markdown",
    "id": "71327f78-d195-4907-93eb-950ba6af6cc7",
-   "metadata": {},
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": []
+   },
    "source": [
     "## References and subsequent works\n",
     "\n",
