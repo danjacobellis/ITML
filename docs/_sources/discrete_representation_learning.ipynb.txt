@@ -532,7 +532,7 @@
    },
    "source": [
     "<p style=\"text-align:center;\">\n",
-    "<img src=\"_images/encoder.png\" width=600 height=600 class=\"center\">\n",
+    "<img src=\"_images/encoder.png\" width=550 height=550 class=\"center\">\n",
     "</p>"
    ]
   },
@@ -621,7 +621,7 @@
    },
    "source": [
     "<p style=\"text-align:center;\">\n",
-    "<img src=\"_images/skip.png\" width=400 height=400 class=\"center\">\n",
+    "<img src=\"_images/skip.png\" width=500 height=500 class=\"center\">\n",
     "</p>"
    ]
   },
@@ -649,7 +649,7 @@
    "source": [
     "## Loss function\n",
     "\n",
-    "$$L = \\underbrace{\\log (p(x|z_q(x))}_{\\text{reconstruction loss}}+\\underbrace{\\lVert \\text{sg}[z_e(x)] - e \\rVert_2^2}_{\\text{vector quantization}}+\\underbrace{\\beta \\lVert z_e(x) - \\text{sg}[e] \\rVert_2^2}_{\\text{commitment loss}}$$\n",
+    "$$L = \\underbrace{\\log (p(x|z_q(x))}_{\\text{reconstruction loss}}+\\underbrace{\\lVert \\text{sg}[z_e(x)] - e \\rVert_2^2}_{\\text{codebook loss}}+\\underbrace{\\beta \\lVert z_e(x) - \\text{sg}[e] \\rVert_2^2}_{\\text{commitment loss}}$$\n",
     "\n",
     "<center> (stopgradient operator $\\text{sg}[\\cdot]$ forces the operand to be a non-updated constant) </center>\n",
     "\n",
@@ -745,19 +745,6 @@
    "source": [
     "<p style=\"text-align:center;\">\n",
     "<img src=\"_images/audio_hvqvae.png\" width=700 height=700 class=\"center\">\n",
-    "</p>"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "732c5766-80fa-46cd-aa51-fffe9e57ae93",
-   "metadata": {
-    "tags": [
-     "remove-cell"
-    ]
-   },
-   "source": [
-    "<p style=\"text-align:center;\">\n",
     "<img src=\"_images/image_hvqvae.png\" width=500 height=500 class=\"center\">\n",
     "</p>"
    ]
@@ -819,9 +806,77 @@
     "\n",
     "* When the loss function compares the input an output samples directly, there is a tendency to favor low frequencies\n",
     "\n",
-    "* A solution is to compute the loss on a time-frequency representation of the signal\n",
-    "\n",
-    "* Even better if the loss is calculated using TF representations with varying time and frequency resolutions"
+    "* Solution: compute the loss at several time-frequency resolutions"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "2cf5fb53-76e5-437e-a0db-04e7f328497f",
+   "metadata": {
+    "tags": [
+     "remove-cell"
+    ]
+   },
+   "source": [
+    "<p style=\"text-align:center;\">\n",
+    "<img src=\"_images/time_frequency_compare.svg\" width=600 height=600 class=\"center\">\n",
+    "</p>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "75a75a15-c339-467d-a7f2-e357ad2942a4",
+   "metadata": {
+    "tags": [
+     "remove-nb-cell"
+    ]
+   },
+   "source": [
+    "![](img/time_freq_compare.svg)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "d131165b-bfdc-4246-b59d-4c02145e6540",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": []
+   },
+   "source": [
+    "## VQ-VAE as lossy audio encoder"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "c221239a-a991-4ec7-be99-1a65058c5b89",
+   "metadata": {},
+   "source": [
+    "<p style=\"text-align:center;\">\n",
+    "<img src=\"_images/reconstruct.jpg\" width=500 height=500 class=\"center\">\n",
+    "</p>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "bfcb114e-92f8-4e63-b03d-73a9c3da1cb7",
+   "metadata": {},
+   "source": [
+    "![](img/reconstruct.jpg)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "39e3eb86-26ac-48ff-848b-a1ccce49c80b",
+   "metadata": {},
+   "source": [
+    "<audio controls=\"controls\">\n",
+    "     <source src=\"../_static/pt1_orig.wav\" type=\"audio/wav\">\n",
+    "</audio>\n",
+    "<audio controls=\"controls\">\n",
+    "     <source src=\"../_static/pt1_recon1.wav\" type=\"audio/wav\">\n",
+    "</audio>"
    ]
   }
  ],

@@ -15069,7 +15069,7 @@ $$k=\text{arg}\min_{j}{\lVert z_e(x) - e_j \rVert_2}, \qquad q(z|x)=\begin{cases
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
 <p style="text-align:center;">
-<img src="_images/encoder.png" width=600 height=600 class="center">
+<img src="_images/encoder.png" width=550 height=550 class="center">
 </p>
 </div>
 </div>
@@ -15152,7 +15152,7 @@ $$k=\text{arg}\min_{j}{\lVert z_e(x) - e_j \rVert_2}, \qquad q(z|x)=\begin{cases
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
 <p style="text-align:center;">
-<img src="_images/skip.png" width=400 height=400 class="center">
+<img src="_images/skip.png" width=500 height=500 class="center">
 </p>
 </div>
 </div>
@@ -15164,7 +15164,7 @@ $$k=\text{arg}\min_{j}{\lVert z_e(x) - e_j \rVert_2}, \qquad q(z|x)=\begin{cases
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Loss-function">Loss function<a class="anchor-link" href="#Loss-function">&#182;</a></h2>$$L = \underbrace{\log (p(x|z_q(x))}_{\text{reconstruction loss}}+\underbrace{\lVert \text{sg}[z_e(x)] - e \rVert_2^2}_{\text{vector quantization}}+\underbrace{\beta \lVert z_e(x) - \text{sg}[e] \rVert_2^2}_{\text{commitment loss}}$$<center> (stopgradient operator $\text{sg}[\cdot]$ forces the operand to be a non-updated constant) </center><p>&nbsp;</p>
+<h2 id="Loss-function">Loss function<a class="anchor-link" href="#Loss-function">&#182;</a></h2>$$L = \underbrace{\log (p(x|z_q(x))}_{\text{reconstruction loss}}+\underbrace{\lVert \text{sg}[z_e(x)] - e \rVert_2^2}_{\text{codebook loss}}+\underbrace{\beta \lVert z_e(x) - \text{sg}[e] \rVert_2^2}_{\text{commitment loss}}$$<center> (stopgradient operator $\text{sg}[\cdot]$ forces the operand to be a non-updated constant) </center><p>&nbsp;</p>
 <ul>
 <li>Codebook loss ensures selected codes are close to the output of the encoder</li>
 <li>Commitment loss with hyperparameter $\beta$<ul>
@@ -15255,18 +15255,6 @@ $$k=\text{arg}\min_{j}{\lVert z_e(x) - e_j \rVert_2}, \qquad q(z|x)=\begin{cases
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
 <p style="text-align:center;">
 <img src="_images/audio_hvqvae.png" width=700 height=700 class="center">
-</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
-<p style="text-align:center;">
 <img src="_images/image_hvqvae.png" width=500 height=500 class="center">
 </p>
 </div>
@@ -15301,12 +15289,75 @@ $$k=\text{arg}\min_{j}{\lVert z_e(x) - e_j \rVert_2}, \qquad q(z|x)=\begin{cases
 <h2 id="Time-frequency-loss">Time-frequency loss<a class="anchor-link" href="#Time-frequency-loss">&#182;</a></h2><ul>
 <li><p>When the loss function compares the input an output samples directly, there is a tendency to favor low frequencies</p>
 </li>
-<li><p>A solution is to compute the loss on a time-frequency representation of the signal</p>
-</li>
-<li><p>Even better if the loss is calculated using TF representations with varying time and frequency resolutions</p>
+<li><p>Solution: compute the loss at several time-frequency resolutions</p>
 </li>
 </ul>
 
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
+<p style="text-align:center;">
+<img src="_images/time_frequency_compare.svg" width=600 height=600 class="center">
+</p>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="VQ-VAE-as-lossy-audio-encoder">VQ-VAE as lossy audio encoder<a class="anchor-link" href="#VQ-VAE-as-lossy-audio-encoder">&#182;</a></h2>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p style="text-align:center;">
+<img src="_images/reconstruct.jpg" width=500 height=500 class="center">
+</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><img src="img/reconstruct.jpg" alt=""></p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<audio controls="controls">
+     <source src="../_static/pt1_orig.wav" type="audio/wav">
+</audio>
+<audio controls="controls">
+     <source src="../_static/pt1_recon1.wav" type="audio/wav">
+</audio>
 </div>
 </div>
 </div>

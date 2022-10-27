@@ -239,7 +239,7 @@ $<span class="math notranslate nohighlight">\(k^* = \text{arg} \min_{k}{\lVert x
 <section id="loss-function">
 <h2>Loss function<a class="headerlink" href="#loss-function" title="Permalink to this headline">¶</a></h2>
 <div class="math notranslate nohighlight">
-\[L = \underbrace{\log (p(x|z_q(x))}_{\text{reconstruction loss}}+\underbrace{\lVert \text{sg}[z_e(x)] - e \rVert_2^2}_{\text{vector quantization}}+\underbrace{\beta \lVert z_e(x) - \text{sg}[e] \rVert_2^2}_{\text{commitment loss}}\]</div>
+\[L = \underbrace{\log (p(x|z_q(x))}_{\text{reconstruction loss}}+\underbrace{\lVert \text{sg}[z_e(x)] - e \rVert_2^2}_{\text{codebook loss}}+\underbrace{\beta \lVert z_e(x) - \text{sg}[e] \rVert_2^2}_{\text{commitment loss}}\]</div>
 <center> (stopgradient operator $\text{sg}[\cdot]$ forces the operand to be a non-updated constant) </center>
 <p> </p>
 <ul class="simple">
@@ -311,10 +311,21 @@ $<span class="math notranslate nohighlight">\(k^* = \text{arg} \min_{k}{\lVert x
 <h2>Time-frequency loss<a class="headerlink" href="#time-frequency-loss" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>When the loss function compares the input an output samples directly, there is a tendency to favor low frequencies</p></li>
-<li><p>A solution is to compute the loss on a time-frequency representation of the signal</p></li>
-<li><p>Even better if the loss is calculated using TF representations with varying time and frequency resolutions</p></li>
+<li><p>Solution: compute the loss at several time-frequency resolutions</p></li>
 </ul>
+<p><img alt="" src="_images/time_freq_compare.svg" /></p>
 </section>
+<section id="vq-vae-as-lossy-audio-encoder">
+<h2>VQ-VAE as lossy audio encoder<a class="headerlink" href="#vq-vae-as-lossy-audio-encoder" title="Permalink to this headline">¶</a></h2>
+<p style="text-align:center;">
+<img src="_images/reconstruct.jpg" width=500 height=500 class="center">
+</p><p><img alt="" src="_images/reconstruct.jpg" /></p>
+<audio controls="controls">
+     <source src="../_static/pt1_orig.wav" type="audio/wav">
+</audio>
+<audio controls="controls">
+     <source src="../_static/pt1_recon1.wav" type="audio/wav">
+</audio></section>
 </section>
 
 
@@ -351,6 +362,7 @@ $<span class="math notranslate nohighlight">\(k^* = \text{arg} \min_{k}{\lVert x
 <li class="toctree-l2"><a class="reference internal" href="#hierarchical-vq-vae">Hierarchical VQ-VAE</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#random-restarts">Random restarts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#time-frequency-loss">Time-frequency loss</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vq-vae-as-lossy-audio-encoder">VQ-VAE as lossy audio encoder</a></li>
 </ul>
 </li>
 </ul>
