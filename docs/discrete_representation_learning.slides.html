@@ -14743,7 +14743,7 @@ with VQ-VAE-2</a> Razavi et al. NIPS 2019.</p>
 </div>
 </div>
 </div>
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -14816,7 +14816,7 @@ with VQ-VAE-2</a> Razavi et al. NIPS 2019.</p>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
 <p style="text-align:center;">
-<img src="_images/vq.png" width=400 height=400 class="center">
+<img src="_images/VAE.png" width=400 height=400 class="center">
 </p>
 </div>
 </div>
@@ -15027,7 +15027,7 @@ $$q(z|x)\approx q(z)=\mathcal N(a,b)$$<ul>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
 <p style="text-align:center;">
 <img src="_images/vqvae.png" width=700 height=700 class="center">
 </p>
@@ -15057,7 +15057,7 @@ $$q(z|x)\approx q(z)=\mathcal N(a,b)$$<ul>
 <li>Output of encoder is $z_e(x)$ is quantized to nearest code</li>
 <li>Nearest neighbor look-up in the embedding space $e$</li>
 </ul>
-$$k=\text{arg}\min_{j}{\lVert z_e(x) - e_j \rVert_2}$$$$q(z|x)=\begin{cases}1 &amp; \text{for } z=k \\ 0 &amp; \text{otherwise} \end{cases}$$
+$$k=\text{arg}\min_{j}{\lVert z_e(x) - e_j \rVert_2}, \qquad q(z|x)=\begin{cases}1 &amp; \text{for } z=k \\ 0 &amp; \text{otherwise} \end{cases}$$
 </div>
 </div>
 </div>
@@ -15067,9 +15067,9 @@ $$k=\text{arg}\min_{j}{\lVert z_e(x) - e_j \rVert_2}$$$$q(z|x)=\begin{cases}1 &a
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
 <p style="text-align:center;">
-<img src="_images/encoder.png" width=700 height=700 class="center">
+<img src="_images/encoder.png" width=600 height=600 class="center">
 </p>
 </div>
 </div>
@@ -15095,7 +15095,7 @@ $$k=\text{arg}\min_{j}{\lVert z_e(x) - e_j \rVert_2}$$$$q(z|x)=\begin{cases}1 &a
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Decoder">Decoder<a class="anchor-link" href="#Decoder">&#182;</a></h2><ul>
 <li>Input to decoder is the embedding vector $z_q(x)=e_k$</li>
-<li>Less sensitive to posterior collapse so powerful autoregressive decoder can be used.</li>
+<li>Less sensitive to posterior collapse. Can use powerful autoregressive decoder</li>
 </ul>
 
 </div>
@@ -15107,7 +15107,7 @@ $$k=\text{arg}\min_{j}{\lVert z_e(x) - e_j \rVert_2}$$$$q(z|x)=\begin{cases}1 &a
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
 <p style="text-align:center;">
 <img src="_images/decoder.png" width=700 height=700 class="center">
 </p>
@@ -15136,12 +15136,24 @@ $$k=\text{arg}\min_{j}{\lVert z_e(x) - e_j \rVert_2}$$$$q(z|x)=\begin{cases}1 &a
 <h2 id="Learning">Learning<a class="anchor-link" href="#Learning">&#182;</a></h2><ul>
 <li>The quantization step is not differentiable<ul>
 <li>Just copy the gradients from the decoder input to encoder output instead</li>
-<li>Since the output of the encoder and the input to the decoder share the same $D$ dimensional space, there is still useful information in the gradient.</li>
 <li>We will need to additional term in loss function to learn the codebook</li>
 </ul>
 </li>
 </ul>
 
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
+<p style="text-align:center;">
+<img src="_images/skip.png" width=400 height=400 class="center">
+</p>
 </div>
 </div>
 </div>
@@ -15152,7 +15164,8 @@ $$k=\text{arg}\min_{j}{\lVert z_e(x) - e_j \rVert_2}$$$$q(z|x)=\begin{cases}1 &a
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Loss-function">Loss function<a class="anchor-link" href="#Loss-function">&#182;</a></h2>$$L = \underbrace{\log (p(x|z_q(x))}_{\text{reconstruction loss}}+\underbrace{\lVert \text{sg}[z_e(x)] - e \rVert_2^2}_{\text{vector quantization}}+\underbrace{\beta \lVert z_e(x) - \text{sg}[e] \rVert_2^2}_{\text{commitment loss}}$$<center> (stopgradient operator $\text{sg}[\cdot]$ forces the operand to be a non-updated constant) </center><ul>
+<h2 id="Loss-function">Loss function<a class="anchor-link" href="#Loss-function">&#182;</a></h2>$$L = \underbrace{\log (p(x|z_q(x))}_{\text{reconstruction loss}}+\underbrace{\lVert \text{sg}[z_e(x)] - e \rVert_2^2}_{\text{vector quantization}}+\underbrace{\beta \lVert z_e(x) - \text{sg}[e] \rVert_2^2}_{\text{commitment loss}}$$<center> (stopgradient operator $\text{sg}[\cdot]$ forces the operand to be a non-updated constant) </center><p>&nbsp;</p>
+<ul>
 <li>Codebook loss ensures selected codes are close to the output of the encoder</li>
 <li>Commitment loss with hyperparameter $\beta$<ul>
 <li>Encourages the output of the encoder to stay close to the chosen codebook vector</li>
@@ -15241,7 +15254,7 @@ $$k=\text{arg}\min_{j}{\lVert z_e(x) - e_j \rVert_2}$$$$q(z|x)=\begin{cases}1 &a
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
 <p style="text-align:center;">
-<img src="_images/audio_hvqvae.png" width=300 height=300 class="center">
+<img src="_images/audio_hvqvae.png" width=700 height=700 class="center">
 </p>
 </div>
 </div>
@@ -15254,7 +15267,7 @@ $$k=\text{arg}\min_{j}{\lVert z_e(x) - e_j \rVert_2}$$$$q(z|x)=\begin{cases}1 &a
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
 <p style="text-align:center;">
-<img src="_images/image_vqvae.png" width=700 height=700 class="center">
+<img src="_images/image_hvqvae.png" width=500 height=500 class="center">
 </p>
 </div>
 </div>
@@ -15267,7 +15280,7 @@ $$k=\text{arg}\min_{j}{\lVert z_e(x) - e_j \rVert_2}$$$$q(z|x)=\begin{cases}1 &a
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Random-restarts">Random restarts<a class="anchor-link" href="#Random-restarts">&#182;</a></h2><ul>
-<li><p>Although discretizing helps with the posterior collapse there it is not perfect.</p>
+<li><p>Although discretizing helps with the posterior collapse, it is not perfect.</p>
 </li>
 <li><p>One technique that has been used is random restarts</p>
 </li>

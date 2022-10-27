@@ -81,24 +81,6 @@ JSServe.setup_connection({offline: true})
 </div>
 </div></div>
 </div>
-<div class="cell tag_remove-nb-input tag_remove-nb-cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">BSON</span><span class="w"></span>
-<span class="k">using</span><span class="w"> </span><span class="n">WGLMakie</span><span class="w"></span>
-<span class="n">BSON</span><span class="o">.</span><span class="nd">@load</span><span class="w"> </span><span class="s">&quot;experiments/vae.bson&quot;</span><span class="w"> </span><span class="n">μ</span><span class="w"> </span><span class="n">y</span><span class="w"></span>
-<span class="n">BSON</span><span class="o">.</span><span class="nd">@load</span><span class="w"> </span><span class="s">&quot;experiments/e.bson&quot;</span><span class="w"> </span><span class="n">e</span><span class="w"></span>
-<span class="n">BSON</span><span class="o">.</span><span class="nd">@load</span><span class="w"> </span><span class="s">&quot;experiments/encoded_outputs.bson&quot;</span><span class="w"> </span><span class="n">encoded_outputs</span><span class="w"></span>
-<span class="n">BSON</span><span class="o">.</span><span class="nd">@load</span><span class="w"> </span><span class="s">&quot;experiments/y2.bson&quot;</span><span class="w"> </span><span class="n">y2</span><span class="w"></span>
-<span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cat</span><span class="p">([</span><span class="kt">Float32</span><span class="o">.</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">i∈</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]]</span><span class="o">...</span><span class="p">,</span><span class="n">dims</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
-<span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cat</span><span class="p">([</span><span class="kt">Float32</span><span class="o">.</span><span class="p">(</span><span class="n">encoded_outputs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">i∈1</span><span class="o">:</span><span class="mi">1000</span><span class="p">]</span><span class="o">...</span><span class="p">,</span><span class="n">dims</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="w"></span>
-<span class="n">y2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">Float32</span><span class="o">.</span><span class="p">(</span><span class="n">y2</span><span class="p">);</span><span class="w"></span>
-<span class="n">w</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cat</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="mi">1</span><span class="o">:</span><span class="mi">997</span><span class="p">],</span><span class="n">e</span><span class="p">,</span><span class="n">dims</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="w"></span>
-<span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">Int</span><span class="o">.</span><span class="p">(</span><span class="n">cat</span><span class="p">(</span><span class="n">y2</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="mi">997</span><span class="p">],</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">ones</span><span class="p">(</span><span class="kt">Float32</span><span class="p">,</span><span class="mi">27</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">dims</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="o">:</span><span class="p">]);</span><span class="w"></span>
-<span class="n">ms</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mf">0.1</span><span class="o">*</span><span class="n">ones</span><span class="p">(</span><span class="mi">997</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span><span class="mf">0.3</span><span class="o">*</span><span class="n">ones</span><span class="p">(</span><span class="mi">27</span><span class="p">,</span><span class="mi">1</span><span class="p">)][</span><span class="o">:</span><span class="p">];</span><span class="w"></span>
-</pre></div>
-</div>
-</div>
-</div>
 <section class="tex2jax_ignore mathjax_ignore" id="discrete-representation-learning">
 <h1>Discrete Representation Learning<a class="headerlink" href="#discrete-representation-learning" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="https://proceedings.neurips.cc/paper/2017/hash/7a98af17e63a0ac09ce2e96d03992fbc-Abstract.html">Paper</a></p>
@@ -219,9 +201,7 @@ $<span class="math notranslate nohighlight">\(k^* = \text{arg} \min_{k}{\lVert x
 <li><p>Latent embedding space consists of codebook: <span class="math notranslate nohighlight">\(e\in R^{K\times D}\)</span></p></li>
 <li><p>Posterior <span class="math notranslate nohighlight">\(q(z|x)\)</span> is a set of codes</p></li>
 </ul>
-<p style="text-align:center;">
-<img src="_images/vqvae.png" width=700 height=700 class="center">
-</p><p><img alt="" src="_images/vqvae.png" /></p>
+<p><img alt="" src="_images/vqvae.png" /></p>
 </section>
 <section id="discrete-latent-variables">
 <h2>Discrete latent variables<a class="headerlink" href="#discrete-latent-variables" title="Permalink to this headline">¶</a></h2>
@@ -230,22 +210,16 @@ $<span class="math notranslate nohighlight">\(k^* = \text{arg} \min_{k}{\lVert x
 <li><p>Nearest neighbor look-up in the embedding space <span class="math notranslate nohighlight">\(e\)</span></p></li>
 </ul>
 <div class="math notranslate nohighlight">
-\[k=\text{arg}\min_{j}{\lVert z_e(x) - e_j \rVert_2}\]</div>
-<div class="math notranslate nohighlight">
-\[\begin{split}q(z|x)=\begin{cases}1 &amp; \text{for } z=k \\ 0 &amp; \text{otherwise} \end{cases}\end{split}\]</div>
-<p style="text-align:center;">
-<img src="_images/encoder.png" width=700 height=700 class="center">
-</p><p><img alt="" src="_images/encoder.png" /></p>
+\[\begin{split}k=\text{arg}\min_{j}{\lVert z_e(x) - e_j \rVert_2}, \qquad q(z|x)=\begin{cases}1 &amp; \text{for } z=k \\ 0 &amp; \text{otherwise} \end{cases}\end{split}\]</div>
+<p><img alt="" src="_images/encoder.png" /></p>
 </section>
 <section id="decoder">
 <h2>Decoder<a class="headerlink" href="#decoder" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Input to decoder is the embedding vector <span class="math notranslate nohighlight">\(z_q(x)=e_k\)</span></p></li>
-<li><p>Less sensitive to posterior collapse so powerful autoregressive decoder can be used.</p></li>
+<li><p>Less sensitive to posterior collapse. Can use powerful autoregressive decoder</p></li>
 </ul>
-<p style="text-align:center;">
-<img src="_images/decoder.png" width=700 height=700 class="center">
-</p><p><img alt="" src="_images/decoder.png" /></p>
+<p><img alt="" src="_images/decoder.png" /></p>
 </section>
 <section id="learning">
 <h2>Learning<a class="headerlink" href="#learning" title="Permalink to this headline">¶</a></h2>
@@ -253,17 +227,21 @@ $<span class="math notranslate nohighlight">\(k^* = \text{arg} \min_{k}{\lVert x
 <li><p>The quantization step is not differentiable</p>
 <ul>
 <li><p>Just copy the gradients from the decoder input to encoder output instead</p></li>
-<li><p>Since the output of the encoder and the input to the decoder share the same <span class="math notranslate nohighlight">\(D\)</span> dimensional space, there is still useful information in the gradient.</p></li>
 <li><p>We will need to additional term in loss function to learn the codebook</p></li>
 </ul>
 </li>
 </ul>
+<ul class="simple">
+<li><p>Since the output of the encoder and the input to the decoder share the same <span class="math notranslate nohighlight">\(D\)</span> dimensional space, there is still useful information in the gradient.</p></li>
+</ul>
+<p><img alt="" src="_images/skip.png" /></p>
 </section>
 <section id="loss-function">
 <h2>Loss function<a class="headerlink" href="#loss-function" title="Permalink to this headline">¶</a></h2>
 <div class="math notranslate nohighlight">
 \[L = \underbrace{\log (p(x|z_q(x))}_{\text{reconstruction loss}}+\underbrace{\lVert \text{sg}[z_e(x)] - e \rVert_2^2}_{\text{vector quantization}}+\underbrace{\beta \lVert z_e(x) - \text{sg}[e] \rVert_2^2}_{\text{commitment loss}}\]</div>
 <center> (stopgradient operator $\text{sg}[\cdot]$ forces the operand to be a non-updated constant) </center>
+<p> </p>
 <ul class="simple">
 <li><p>Codebook loss ensures selected codes are close to the output of the encoder</p></li>
 <li><p>Commitment loss with hyperparameter <span class="math notranslate nohighlight">\(\beta\)</span></p>
@@ -324,7 +302,7 @@ $<span class="math notranslate nohighlight">\(k^* = \text{arg} \min_{k}{\lVert x
 <section id="random-restarts">
 <h2>Random restarts<a class="headerlink" href="#random-restarts" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Although discretizing helps with the posterior collapse there it is not perfect.</p></li>
+<li><p>Although discretizing helps with the posterior collapse, it is not perfect.</p></li>
 <li><p>One technique that has been used is random restarts</p></li>
 <li><p>If a vector in the codebook is not being used, randomly reset it to one of the encoder outputs.</p></li>
 </ul>
