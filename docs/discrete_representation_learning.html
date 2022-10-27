@@ -180,13 +180,13 @@ $<span class="math notranslate nohighlight">\(k^* = \text{arg} \min_{k}{\lVert x
 <section id="posterior-collapse">
 <h2>Posterior Collapse<a class="headerlink" href="#posterior-collapse" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Optimizing ELBO does not guarantee mutual information between input <span class="math notranslate nohighlight">\(x\)</span> and latent <span class="math notranslate nohighlight">\(z\)</span></p></li>
+<li><p>Optimizing ELBO does not guarantee mutual information between <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(z\)</span></p></li>
 <li><p>A strong autoregressive decoder may ignore latents <span class="math notranslate nohighlight">\(z\)</span></p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[q(z|x)\approx q(z)=\mathcal N(a,b)\]</div>
 <ul class="simple">
-<li><p>This was a signifant issue in previous attempts to combine VAE with autoregressive models</p></li>
+<li><p>Was an issue in previous attempts to combine VAE with autoregressive models</p></li>
 <li><p>Many different solutions have been proposed</p></li>
 </ul>
 </section>
@@ -203,7 +203,6 @@ $<span class="math notranslate nohighlight">\(k^* = \text{arg} \min_{k}{\lVert x
 <h2>Discrete latent variables<a class="headerlink" href="#discrete-latent-variables" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Output of encoder is <span class="math notranslate nohighlight">\(z_e(x)\)</span> is quantized to nearest code</p></li>
-<li><p>Nearest neighbor look-up in the embedding space <span class="math notranslate nohighlight">\(e\)</span></p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[\begin{split}k=\text{arg}\min_{j}{\lVert z_e(x) - e_j \rVert_2}, \qquad q(z|x)=\begin{cases}1 &amp; \text{for } z=k \\ 0 &amp; \text{otherwise} \end{cases}\end{split}\]</div>
@@ -293,21 +292,15 @@ $<span class="math notranslate nohighlight">\(k^* = \text{arg} \min_{k}{\lVert x
 <li><p>“Lossy” stage: uniform prior, feedforward decoder</p></li>
 <li><p>“Lossless” stage: learn the prior, autoregressive decoder</p></li>
 </ul>
-<p style="text-align:center;">
-<img src="_images/audio_hvqvae.png" width=700 height=700 class="center">
-</p><p><img alt="" src="_images/lossy_lossless.png" /></p>
+<p><img alt="" src="_images/lossy_lossless.png" /></p>
 </section>
 <section id="hierarchical-vq-vae">
 <h2>Hierarchical VQ-VAE<a class="headerlink" href="#hierarchical-vq-vae" title="Permalink to this headline">¶</a></h2>
-<p style="text-align:center;">
-<img src="_images/image_hvqvae.png" width=700 height=700 class="center">
-</p><p><img alt="" src="_images/image_hvqvae.png" /></p>
+<p><img alt="" src="_images/image_hvqvae.png" /></p>
 </section>
 <section id="vq-vae-as-lossy-image-codec">
 <h2>VQ-VAE as lossy image codec<a class="headerlink" href="#vq-vae-as-lossy-image-codec" title="Permalink to this headline">¶</a></h2>
-<p style="text-align:center;">
-<img src="_images/ratios.jpg" width=500 height=500 class="center">
-</p><p><img alt="" src="_images/ratios.png" /></p>
+<p><img alt="" src="_images/ratios.png" /></p>
 <p><a class="reference external" href="https://proceedings.neurips.cc/paper/2019/file/5f8e2fa1718d1bbcadf1cd9c7a54fb8c-Paper.pdf">Generating Diverse High-Fidelity Images
 with VQ-VAE-2</a> Razavi et al. NIPS 2019.</p>
 </section>

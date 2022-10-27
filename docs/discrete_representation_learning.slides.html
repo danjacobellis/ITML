@@ -14814,7 +14814,7 @@ with VQ-VAE-2</a> Razavi et al. NIPS 2019.</p>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
 <p style="text-align:center;">
-<img src="_images/VAE.png" width=400 height=400 class="center">
+<img src="_images/VAE.png" width=600 height=600 class="center">
 </p>
 </div>
 </div>
@@ -14900,7 +14900,7 @@ $$k^* = \text{arg} \min_{k}{\lVert x-e_k\rVert ^2}, \qquad x \approx c_{k^*}$$</
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
 <p style="text-align:center;">
-<img src="_images/vq.png" width=400 height=400 class="center">
+<img src="_images/vq.png" width=350 height=350 class="center">
 </p>
 </div>
 </div>
@@ -14989,11 +14989,11 @@ $$\{c_k^*\} := \arg\min_{\{c_k\}} \sum_{h=1}^N \min_k
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Posterior-Collapse">Posterior Collapse<a class="anchor-link" href="#Posterior-Collapse">&#182;</a></h2><ul>
-<li>Optimizing ELBO does not guarantee mutual information between input $x$ and latent $z$</li>
+<li>Optimizing ELBO does not guarantee mutual information between $x$ and $z$</li>
 <li>A strong autoregressive decoder may ignore latents $z$</li>
 </ul>
 $$q(z|x)\approx q(z)=\mathcal N(a,b)$$<ul>
-<li>This was a signifant issue in previous attempts to combine VAE with autoregressive models</li>
+<li>Was an issue in previous attempts to combine VAE with autoregressive models</li>
 <li>Many different solutions have been proposed</li>
 </ul>
 
@@ -15050,7 +15050,6 @@ $$q(z|x)\approx q(z)=\mathcal N(a,b)$$<ul>
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Discrete-latent-variables">Discrete latent variables<a class="anchor-link" href="#Discrete-latent-variables">&#182;</a></h2><ul>
 <li>Output of encoder is $z_e(x)$ is quantized to nearest code</li>
-<li>Nearest neighbor look-up in the embedding space $e$</li>
 </ul>
 $$k=\text{arg}\min_{j}{\lVert z_e(x) - e_j \rVert_2}, \qquad q(z|x)=\begin{cases}1 &amp; \text{for } z=k \\ 0 &amp; \text{otherwise} \end{cases}$$
 </div>
@@ -15248,22 +15247,10 @@ $$k=\text{arg}\min_{j}{\lVert z_e(x) - e_j \rVert_2}, \qquad q(z|x)=\begin{cases
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
 <p style="text-align:center;">
-<img src="_images/audio_hvqvae.png" width=700 height=700 class="center">
+<img src="_images/lossy_lossless.png" width=700 height=700 class="center">
 </p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><img src="img/lossy_lossless.png" alt=""></p>
-
 </div>
 </div>
 </div>
@@ -15284,22 +15271,10 @@ $$k=\text{arg}\min_{j}{\lVert z_e(x) - e_j \rVert_2}, \qquad q(z|x)=\begin{cases
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
 <p style="text-align:center;">
 <img src="_images/image_hvqvae.png" width=700 height=700 class="center">
 </p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><img src="img/image_hvqvae.png" alt=""></p>
-
 </div>
 </div>
 </div>
@@ -15320,22 +15295,10 @@ $$k=\text{arg}\min_{j}{\lVert z_e(x) - e_j \rVert_2}, \qquad q(z|x)=\begin{cases
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
 <p style="text-align:center;">
-<img src="_images/ratios.jpg" width=500 height=500 class="center">
+<img src="_images/ratios.png" width=500 height=500 class="center">
 </p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><img src="img/ratios.png" alt=""></p>
-
 </div>
 </div>
 </div>
@@ -15498,20 +15461,8 @@ with VQ-VAE-2</a> Razavi et al. NIPS 2019.</p>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
 <p style="text-align:center;">
-<img src="_images/reconstruct.jpg" width=500 height=500 class="center">
+<img src="_images/post_quantization.jpg" width=500 height=500 class="center">
 </p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><img src="img/post_quantization.png" alt=""></p>
-
 </div>
 </div>
 </div>
