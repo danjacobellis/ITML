@@ -867,10 +867,10 @@
    "metadata": {},
    "source": [
     "<audio controls=\"controls\">\n",
-    "     <source src=\"../_static/pt1_orig1.wav\" type=\"audio/wav\">\n",
+    "     <source src=\"./_static/pt1_orig1.wav\" type=\"audio/wav\">\n",
     "</audio>\n",
     "<audio controls=\"controls\">\n",
-    "     <source src=\"/_static/pt1_recon1.wav\" type=\"audio/wav\">\n",
+    "     <source src=\"./_static/pt1_recon1.wav\" type=\"audio/wav\">\n",
     "</audio>"
    ]
   }
