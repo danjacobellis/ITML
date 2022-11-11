@@ -36,7 +36,9 @@ However, variants of vector quantization are now being deployed in standards:
 
 ## Why integrate compression and learning?
 
-Consider the task of image classification and the original AlexNet architecture. Strided convolutional layers and pooling reduce the dimensionalty from 224x224x3 at the input to feature maps of size 3x3x256 at the output. This reduction in size greatly reduces the cost of learning the fully connected layers which predict the image class. All values are represented as 32-bit floating point during training, so the convolutional layers increase the density of class related in
+Consider the task of image classification on ImageNet or a similar dataset. If 1000 classes are represented in the dataset and each class is equally likely, then the class information is about $H_{\text{class}}\approx$ 
+
+using the original AlexNet architecture. Strided convolutional layers and pooling reduce the dimensionalty from 224x224x3 at the input to feature maps of size 3x3x256 at the output. This reduction in size greatly reduces the cost of learning the fully connected layers which predict the image class. All values are represented as 32-bit floating point during training, so the convolutional layers increase the density of class related in
 
 
 
