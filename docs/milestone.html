@@ -101,7 +101,7 @@
 </table>
 <section id="transforms">
 <h3>Transforms<a class="headerlink" href="#transforms" title="Permalink to this headline">¶</a></h3>
-<p>The block DCT and its variants dominate among commonly used codecs. However, emerging standards use learned encoders. Soundstream (Google) and Encodec (Meta), have recently become standardized. Both are based on the vector quantized variational autoencoder (VQ-VAE). Due to the computational cost of the encoder and decoder, it may seem implausible that these learned codecs are widely adopted. But considering that such a large model as stable diffusion can run on an iPhone, the computational cost may eventually be reasonable.</p>
+<p>The block DCT and its variants dominate among commonly used codecs. However, emerging standards use learned encoders. <a class="reference external" href="https://ieeexplore.ieee.org/abstract/document/9625818?casa_token=1Qcv6BHkWiIAAAAA:f7tDFZAEL_cVlsrj5TqVFV1pt-dSb_J6-ju0XcBlwGcccnUTVz7TJCfqqVkEKlzKZVTPYDFo">Soundstream [1]</a> (by Google) and <a class="reference external" href="https://arxiv.org/abs/2210.13438">Encodec [2]</a> (by Meta), have recently become standardized. Both are based on the vector quantized variational autoencoder (VQ-VAE). Due to the computational cost of the encoder and decoder, it may seem implausible that these learned codecs are widely adopted. But considering that <a class="reference external" href="https://liuliu.me/eyes/stretch-iphone-to-its-limit-a-2gib-model-that-can-draw-everything-in-your-pocket">large models like Stable Diffusion can run on an iPhone [3]</a>, the computational cost may eventually be reasonable.</p>
 </section>
 <section id="quantization">
 <h3>Quantization<a class="headerlink" href="#quantization" title="Permalink to this headline">¶</a></h3>
@@ -112,14 +112,14 @@
 <h2>Integrating compression and learning<a class="headerlink" href="#integrating-compression-and-learning" title="Permalink to this headline">¶</a></h2>
 <p>Consider JPEG, where DCT coefficients are generally quantized to between 2-5 bits per pixel but the standard training approach represents all inputs using 32-bit floating point values.</p>
 <p>It would be nice if we could simply represent 2x2 or perhaps even 4x4 blocks using a single 32-bit floating point number, thus reducing the size of the input layer by an order of magnitude, and simplifying training. However, this would amount to encoding blocks as a categorical variable. Since the standard approach to learning a categorical variable is to one-hot encode, we are back to where we started!</p>
-<p>Recently, approaches to training with lower precision representations have been explored, but it is unlikely that anything fewer than 8 bits can be used without drastically changing the training procedure.</p>
+<p>Recently, <a class="reference external" href="https://arxiv.org/abs/2209.05433">approaches to training with lower precision representations [4]</a> have been explored, but it is unlikely that anything fewer than 8 bits can be used without drastically changing the training procedure.</p>
 <section id="post-training-quantization-and-quantization-aware-training">
 <h3>Post training quantization and quantization aware training<a class="headerlink" href="#post-training-quantization-and-quantization-aware-training" title="Permalink to this headline">¶</a></h3>
-<p>The demand to perform inference of deep learning models on mobile and embedded devices has resulted in many techniques for model quantization. With a few clever techniques, it is possible to quantize the weights of a traditionally trained network to low precision (e.g. 8 bits) and retain good performance. To quantize weights even further to 4 or fewer bits, techniques for quantization aware training have been proposed. Unfortunately, the term “quantization-aware” only refers the fact that the network will eventually be quantized, not the fact that the training inputs are quantized. Thus, these techniques are not immediately applicable to reduce the cost of training by exploiting the quantization of encoded inputs.</p>
+<p>The demand to perform inference of deep learning models on mobile and embedded devices has resulted in many techniques for model quantization. With a few clever techniques, it is possible to quantize the weights of a traditionally trained network to low precision (e.g. 8 bits) and retain good performance. To quantize weights even further to 4 or fewer bits, <a class="reference external" href="https://openaccess.thecvf.com/content_cvpr_2018/html/Jacob_Quantization_and_Training_CVPR_2018_paper.html">techniques for quantization aware training have been proposed[5].</a> Unfortunately, the term “quantization-aware” only refers the fact that the network will eventually be quantized, not the fact that the training inputs are quantized. Thus, these techniques are not immediately applicable to reduce the cost of training by exploiting the quantization of encoded inputs.</p>
 </section>
 <section id="binary-neural-networks">
 <h3>Binary neural networks<a class="headerlink" href="#binary-neural-networks" title="Permalink to this headline">¶</a></h3>
-<p>Binary neural networks are a more drastic adaptation to aimed to reduce model size. One limitation of BNNs is that the first input layer must typically be represented at full precision, while the remaining signal path can be represented using binary inputs, weights, and activations.</p>
+<p><a class="reference external" href="https://proceedings.neurips.cc/paper/2016/hash/d8330f857a17c53d217014ee776bfd50-Abstract.html">Binary neural networks[6]</a>  are a more drastic adaptation to aimed to reduce model size. One limitation of BNNs is that the <a class="reference external" href="https://docs.larq.dev/larq/guides/bnn-architecture/#first-last-layer">first input layer must typically be represented at full precision [7][8]</a>, while the remaining signal path can be represented using binary inputs, weights, and activations.</p>
 <p>With the traditional training setup, it did not provide an advantage to represent groups of low-precision inputs using a categorical variable since it would be expand it anyway (e.g. using one-hot encoding). However, with a binary neural network, this expansion is less of a cost because it allows us to reduce the input layer from full precision.</p>
 </section>
 </section>
@@ -137,6 +137,26 @@
 <p>The network with binary inputs only reaches 85% accuracy after 10 epochs, but only requires 4,736 1-bit MACs and 12,544 32-bit MACs.</p>
 <p>The number of model parameters is reduced from 93,000 to 17,000, and the overall model size is reduced from 365 KiB to 68 KiB</p>
 </section>
+</section>
+<section id="next-steps">
+<h2>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
+<p>The general approach of using BNNs on transformed and quantized representations is promising. Subsequent work will focus on:</p>
+<ul class="simple">
+<li><p>Adapting the technique to audio signals. MNIST was used initially for convenience, since even the simplest audio datasets have large input dimensions.</p></li>
+<li><p>Testing the performance on other, more widely used codecs. A VQ-VAE was used because it provides an extremely high compression ratio where the results would be clearly visible.</p></li>
+<li><p>Testing different ways to modify the network architecture when the input size is reduced.</p></li>
+</ul>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<p>[1] <a class="reference external" href="https://ieeexplore.ieee.org/abstract/document/9625818?casa_token=1Qcv6BHkWiIAAAAA:f7tDFZAEL_cVlsrj5TqVFV1pt-dSb_J6-ju0XcBlwGcccnUTVz7TJCfqqVkEKlzKZVTPYDFo">SoundStream: An End-to-End Neural Audio Codec</a></p>
+<p>[2] <a class="reference external" href="https://arxiv.org/abs/2210.13438">High Fidelity Neural Audio Compression</a></p>
+<p>[3] <a class="reference external" href="https://liuliu.me/eyes/stretch-iphone-to-its-limit-a-2gib-model-that-can-draw-everything-in-your-pocket/">Stretch iPhone to its limit: 2GiB Stable Diffusion model runs locally on device</a></p>
+<p>[4] <a class="reference external" href="https://arxiv.org/abs/2209.05433">FP8 Formats for Deep Learning</a></p>
+<p>[5] <a class="reference external" href="https://openaccess.thecvf.com/content_cvpr_2018/html/Jacob_Quantization_and_Training_CVPR_2018_paper.html">Quantization and Training of Neural Networks for Efficient Integer-Arithmetic-Only Inference</a></p>
+<p>[6] <a class="reference external" href="https://proceedings.neurips.cc/paper/2016/hash/d8330f857a17c53d217014ee776bfd50-Abstract.html">Binarized Neural Networks</a></p>
+<p>[7] <a class="reference external" href="https://joss.theoj.org/papers/10.21105/joss.01746">Larq: An Open-Source Library for Training Binarized Neural Networks</a></p>
+<p>[8] <a class="reference external" href="https://docs.larq.dev/larq/guides/bnn-architecture/#first-last-layer">Larq documentation. “Building Binary Neural Networks: First and Last Layers”</a></p>
 </section>
 </section>
 
@@ -164,6 +184,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#lossy-compression-standards">Lossy compression standards</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#integrating-compression-and-learning">Integrating compression and learning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#experiment-4x4-image-blocks-encoded-to-4-bits-as-input-to-bnn">Experiment: 4x4 image blocks encoded to 4 bits as input to BNN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#next-steps">Next steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
 </ul>
 </li>
 </ul>
