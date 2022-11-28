@@ -141,6 +141,56 @@
   },
   {
    "cell_type": "markdown",
+   "id": "856118da-3465-40a3-88b7-625fd50168cc",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Training on transformed data\n",
+    "\n",
+    "* Reduce size and number of initial convolutional layers by training on DCT coefficients\n",
+    "* Input size remains the same (Quantization of transform coefficients ignored)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "10cbc5e8-f1c6-4734-8b1d-9452529dde11",
+   "metadata": {
+    "tags": [
+     "remove-cell"
+    ]
+   },
+   "source": [
+    "<p style=\"text-align:center;\">\n",
+    "<img src=\"_images/dct_vs_resnet.png\" width=700 height=700 class=\"center\">\n",
+    "</p>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "b643df2f-1b30-4caa-b2a5-ded49d17641f",
+   "metadata": {
+    "tags": [
+     "remove-nb-cell"
+    ]
+   },
+   "source": [
+    "![](img/dct_vs_resnet.png)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "6fa4eb7e-ae7c-4598-a9db-ffcb37eff5a7",
+   "metadata": {},
+   "source": [
+    "[Faster Neural networks Straight from JPEG (NIPS 2018)](https://papers.nips.cc/paper/2018/hash/7af6266cc52234b5aa339b16695f7fc4-Abstract.html)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
    "id": "9822c15b-341f-4688-8845-59bcdc392842",
    "metadata": {
     "slideshow": {
@@ -149,19 +199,15 @@
     "tags": []
    },
    "source": [
-    "## Training on encoded data\n",
+    "## Training on quantized data\n",
     "\n",
-    "* Conventional approach\n",
-    "  * 13 GB feature memory\n",
-    "  * 497 GFLOPs per pass\n",
-    "* Alternative approach\n",
-    "    * Each transform coefficient only contains about 2 bits instead of 8\n",
-    "    * \"Replace\" each 2x2 blocks of 2-bit transform coefficients with a single high precision input\n",
-    "    * Size of input layer: $112 \\times 112 \\times 3 \\times 32$ bits per image\n",
-    "    * 3 GB Feature memory\n",
-    "    * 131 GFLOPs per pass\n",
+    "* Each transform coefficient only contains about 2 bits instead of 8\n",
+    "* \"Replace\" each 2x2 blocks of 2-bit transform coefficients with a single high precision input\n",
+    "  * Size of input layer: $112 \\times 112 \\times 3 \\times 32$ bits per image\n",
+    "  * 3 GB Feature memory (down from 13)\n",
+    "  * 131 GFLOPs per pass (down from 497)\n",
     "* How do we \"replace\" several low-precision inputs with a single high precision input?\n",
-    "* Doesn't even work for JPEG since each DCT coefficient has different quantization!"
+    "* Doesn't even work for most codecs since each subband has different quantization!"
    ]
   },
   {
@@ -186,7 +232,7 @@
     "tags": []
    },
    "source": [
-    "## Training on encoded data\n",
+    "## Training on quantized data\n",
     "* How do we \"replace\" several low-precision inputs with a single high precision input?\n",
     "* Naive approach: $y = (x_1) + (x2 << 2) + (x2 << 4) (x2 << 6)$\n",
     "  * Amounts to creating a categorical variable\n",
@@ -267,10 +313,23 @@
     "tags": []
    },
    "source": [
-    "## Audio classification: BNN + VQ\n",
+    "## Audio classification: VQ + BNN\n",
     "* Encode 2x2 time-frequency blocks via vector quantization\n",
     "  * Use mini-batch k-means to learn codebook of 16 vectors (4 bits)\n",
     "  * Compression ratio of 16:1 (before any entropy coding)\n",
+    "* Input size: $64 \\times 64 \\times 4$ binary codes\n",
+    "\n",
+    "| <audio controls=\"controls\"><source src=\"./_static/left01.wav\" type=\"audio/wav\"></audio>    | <audio controls=\"controls\"><source src=\"./_static/right01.wav\" type=\"audio/wav\"></audio>    | <audio controls=\"controls\"><source src=\"./_static/yes01.wav\" type=\"audio/wav\"></audio>    | <audio controls=\"controls\"><source src=\"./_static/no01.wav\" type=\"audio/wav\"></audio>    |\n",
+    "|--------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|\n",
+    "| <audio controls=\"controls\"><source src=\"./_static/left01_vq.wav\" type=\"audio/wav\"></audio> | <audio controls=\"controls\"><source src=\"./_static/right01_vq.wav\" type=\"audio/wav\"></audio> | <audio controls=\"controls\"><source src=\"./_static/yes01_vq.wav\" type=\"audio/wav\"></audio> | <audio controls=\"controls\"><source src=\"./_static/no01_vq.wav\" type=\"audio/wav\"></audio> |"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "fa709437-d2f7-49f3-9d8b-854c38891da8",
+   "metadata": {},
+   "source": [
+    "## Audio classification: BNN + VQ\n",
     "* Input size: $64 \\times 64 \\times 4$ binary codes\n",
     "* 3.74 MiB Feature size \n",
     "* Multiply-accumulate instead of FP\n",

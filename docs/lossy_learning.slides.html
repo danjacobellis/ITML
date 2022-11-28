@@ -14764,22 +14764,56 @@ Dan Jacobellis
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Training-on-encoded-data">Training on encoded data<a class="anchor-link" href="#Training-on-encoded-data">&#182;</a></h2><ul>
-<li>Conventional approach<ul>
-<li>13 GB feature memory</li>
-<li>497 GFLOPs per pass</li>
+<h2 id="Training-on-transformed-data">Training on transformed data<a class="anchor-link" href="#Training-on-transformed-data">&#182;</a></h2><ul>
+<li>Reduce size and number of initial convolutional layers by training on DCT coefficients</li>
+<li>Input size remains the same (Quantization of transform coefficients ignored)</li>
 </ul>
-</li>
-<li>Alternative approach<ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
+<p style="text-align:center;">
+<img src="_images/dct_vs_resnet.png" width=700 height=700 class="center">
+</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><a href="https://papers.nips.cc/paper/2018/hash/7af6266cc52234b5aa339b16695f7fc4-Abstract.html">Faster Neural networks Straight from JPEG (NIPS 2018)</a></p>
+
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Training-on-quantized-data">Training on quantized data<a class="anchor-link" href="#Training-on-quantized-data">&#182;</a></h2><ul>
 <li>Each transform coefficient only contains about 2 bits instead of 8</li>
-<li>"Replace" each 2x2 blocks of 2-bit transform coefficients with a single high precision input</li>
+<li>"Replace" each 2x2 blocks of 2-bit transform coefficients with a single high precision input<ul>
 <li>Size of input layer: $112 \times 112 \times 3 \times 32$ bits per image</li>
-<li>3 GB Feature memory</li>
-<li>131 GFLOPs per pass</li>
+<li>3 GB Feature memory (down from 13)</li>
+<li>131 GFLOPs per pass (down from 497)</li>
 </ul>
 </li>
 <li>How do we "replace" several low-precision inputs with a single high precision input?</li>
-<li>Doesn't even work for JPEG since each DCT coefficient has different quantization!</li>
+<li>Doesn't even work for most codecs since each subband has different quantization!</li>
 </ul>
 
 </div>
@@ -14792,7 +14826,7 @@ Dan Jacobellis
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Training-on-encoded-data">Training on encoded data<a class="anchor-link" href="#Training-on-encoded-data">&#182;</a></h2><ul>
+<h2 id="Training-on-quantized-data">Training on quantized data<a class="anchor-link" href="#Training-on-quantized-data">&#182;</a></h2><ul>
 <li>How do we "replace" several low-precision inputs with a single high precision input?</li>
 <li>Naive approach: $y = (x_1) + (x2 &lt;&lt; 2) + (x2 &lt;&lt; 4) (x2 &lt;&lt; 6)$<ul>
 <li>Amounts to creating a categorical variable</li>
@@ -14928,12 +14962,43 @@ Dan Jacobellis
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Audio-classification:-BNN-+-VQ">Audio classification: BNN + VQ<a class="anchor-link" href="#Audio-classification:-BNN-+-VQ">&#182;</a></h2><ul>
+<h2 id="Audio-classification:-VQ-+-BNN">Audio classification: VQ + BNN<a class="anchor-link" href="#Audio-classification:-VQ-+-BNN">&#182;</a></h2><ul>
 <li>Encode 2x2 time-frequency blocks via vector quantization<ul>
 <li>Use mini-batch k-means to learn codebook of 16 vectors (4 bits)</li>
 <li>Compression ratio of 16:1 (before any entropy coding)</li>
 </ul>
 </li>
+<li>Input size: $64 \times 64 \times 4$ binary codes</li>
+</ul>
+<table>
+<thead><tr>
+<th><audio controls="controls"><source src="./_static/left01.wav" type="audio/wav"></audio></th>
+<th><audio controls="controls"><source src="./_static/right01.wav" type="audio/wav"></audio></th>
+<th><audio controls="controls"><source src="./_static/yes01.wav" type="audio/wav"></audio></th>
+<th><audio controls="controls"><source src="./_static/no01.wav" type="audio/wav"></audio></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><audio controls="controls"><source src="./_static/left01_vq.wav" type="audio/wav"></audio></td>
+<td><audio controls="controls"><source src="./_static/right01_vq.wav" type="audio/wav"></audio></td>
+<td><audio controls="controls"><source src="./_static/yes01_vq.wav" type="audio/wav"></audio></td>
+<td><audio controls="controls"><source src="./_static/no01_vq.wav" type="audio/wav"></audio></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Audio-classification:-BNN-+-VQ">Audio classification: BNN + VQ<a class="anchor-link" href="#Audio-classification:-BNN-+-VQ">&#182;</a></h2><ul>
 <li>Input size: $64 \times 64 \times 4$ binary codes</li>
 <li>3.74 MiB Feature size </li>
 <li>Multiply-accumulate instead of FP<ul>
