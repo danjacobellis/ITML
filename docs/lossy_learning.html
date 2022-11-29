@@ -87,14 +87,21 @@
 </ul>
 <p><img alt="" src="_images/gradient_quant.png" /></p>
 </section>
-<section id="conventional-approach">
-<h2>Conventional approach<a class="headerlink" href="#conventional-approach" title="Permalink to this headline">¶</a></h2>
+<section id="cost-of-conventional-approach">
+<h2>Cost of conventional approach<a class="headerlink" href="#cost-of-conventional-approach" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
+<li><p>Example: Imagenet</p>
+<ul>
 <li><p>Decode image and convert to floating point</p></li>
 <li><p>Size of input layer: <span class="math notranslate nohighlight">\(224 \times224 \times 3 \times 32\)</span> bits per image</p></li>
-<li><p>For batch size of 128:</p></li>
+<li><p>For batch size of 128:</p>
+<ul>
 <li><p>13 GB feature memory</p></li>
-<li><p>497 GFLOPs</p></li>
+<li><p>497 GFLOPs per pass</p></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </section>
 <section id="training-on-quantized-data">
@@ -335,7 +342,7 @@ Networks</a></p>
 <li class="toctree-l2"><a class="reference internal" href="#training-on-transformed-data">Training on transformed data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id1">Training on transformed data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#low-precision-training">Low precision training</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#conventional-approach">Conventional approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cost-of-conventional-approach">Cost of conventional approach</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#training-on-quantized-data">Training on quantized data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id2">Training on quantized data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#binarized-neural-networks">Binarized neural networks</a></li>

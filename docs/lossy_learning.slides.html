@@ -14750,7 +14750,7 @@ Dan Jacobellis
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
 <p style="text-align:center;">
-<img src="_images/dct_vs_resnet.png" width=700 height=700 class="center">
+<img src="_images/dct_vs_resnet.png" width=800 height=800 class="center">
 </p>
 </div>
 </div>
@@ -14816,12 +14816,17 @@ Dan Jacobellis
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Conventional-approach">Conventional approach<a class="anchor-link" href="#Conventional-approach">&#182;</a></h2><ul>
+<h2 id="Cost-of-conventional-approach">Cost of conventional approach<a class="anchor-link" href="#Cost-of-conventional-approach">&#182;</a></h2><ul>
+<li>Example: Imagenet<ul>
 <li>Decode image and convert to floating point</li>
 <li>Size of input layer: $224 \times224 \times 3 \times 32$ bits per image</li>
-<li>For batch size of 128:</li>
+<li>For batch size of 128:<ul>
 <li>13 GB feature memory</li>
-<li>497 GFLOPs</li>
+<li>497 GFLOPs per pass</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
 </div>

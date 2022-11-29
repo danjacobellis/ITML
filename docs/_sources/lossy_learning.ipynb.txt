@@ -152,7 +152,7 @@
    },
    "source": [
     "<p style=\"text-align:center;\">\n",
-    "<img src=\"_images/dct_vs_resnet.png\" width=700 height=700 class=\"center\">\n",
+    "<img src=\"_images/dct_vs_resnet.png\" width=800 height=800 class=\"center\">\n",
     "</p>"
    ]
   },
@@ -261,12 +261,14 @@
     "tags": []
    },
    "source": [
-    "## Conventional approach\n",
-    "* Decode image and convert to floating point\n",
-    "* Size of input layer: $224 \\times224 \\times 3 \\times 32$ bits per image\n",
-    "* For batch size of 128:\n",
-    "* 13 GB feature memory\n",
-    "* 497 GFLOPs"
+    "## Cost of conventional approach\n",
+    "\n",
+    "* Example: Imagenet\n",
+    "    * Decode image and convert to floating point\n",
+    "    * Size of input layer: $224 \\times224 \\times 3 \\times 32$ bits per image\n",
+    "    * For batch size of 128:\n",
+    "        * 13 GB feature memory\n",
+    "        * 497 GFLOPs per pass"
    ]
   },
   {
