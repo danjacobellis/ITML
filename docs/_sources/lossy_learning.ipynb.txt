@@ -128,50 +128,6 @@
   },
   {
    "cell_type": "markdown",
-   "id": "7a092335-e84c-4c60-9c53-c5097c98e151",
-   "metadata": {
-    "slideshow": {
-     "slide_type": "slide"
-    },
-    "tags": []
-   },
-   "source": [
-    "## Low precision training\n",
-    "\n",
-    "* bfloat16 (standardized in 2018)\n",
-    "* FP8 (E4M3 and E5M2, standardized in 2022)\n",
-    "* Fewer than 8 bits requires radical changes to training procedures\n",
-    "* Still not able to get any benefits of lossy encodings (1-4 bits per sample)"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "da5c3591-3f9a-4e3a-a951-c55f2d0e51c8",
-   "metadata": {
-    "tags": [
-     "remove-cell"
-    ]
-   },
-   "source": [
-    "<p style=\"text-align:center;\">\n",
-    "<img src=\"_images/conventional.png\" width=700 height=700 class=\"center\">\n",
-    "</p>"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "8ad745a3-1afe-44e1-9a00-1e719a392a5a",
-   "metadata": {
-    "tags": [
-     "remove-nb-cell"
-    ]
-   },
-   "source": [
-    "![](img/gradient_quant.png)"
-   ]
-  },
-  {
-   "cell_type": "markdown",
    "id": "856118da-3465-40a3-88b7-625fd50168cc",
    "metadata": {
     "slideshow": {
@@ -253,7 +209,51 @@
   },
   {
    "cell_type": "markdown",
-   "id": "50241671-5100-4080-a5f8-3d7ed048ac27",
+   "id": "94f0745d-5261-4b1b-b288-ec7e8cec0b10",
+   "metadata": {
+    "slideshow": {
+     "slide_type": "slide"
+    },
+    "tags": []
+   },
+   "source": [
+    "## Low precision training\n",
+    "\n",
+    "* bfloat16 (standardized in 2018)\n",
+    "* FP8 (E4M3 and E5M2, standardized in 2022)\n",
+    "* Fewer than 8 bits requires radical changes to training procedures\n",
+    "* Still not able to get any benefits of lossy encodings (1-4 bits per sample)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "7a59b249-ad3d-4fb8-a8e6-be7b97fff0fd",
+   "metadata": {
+    "tags": [
+     "remove-cell"
+    ]
+   },
+   "source": [
+    "<p style=\"text-align:center;\">\n",
+    "<img src=\"_images/gradient_quant.png\" width=700 height=700 class=\"center\">\n",
+    "</p>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "791f14e8-5503-482a-9bdf-d90ed6f1d56e",
+   "metadata": {
+    "tags": [
+     "remove-nb-cell"
+    ]
+   },
+   "source": [
+    "![](img/gradient_quant.png)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "e358e66b-d377-4456-aeec-821b0b28ef49",
    "metadata": {
     "slideshow": {
      "slide_type": "slide"
@@ -338,7 +338,7 @@
     "tags": []
    },
    "source": [
-    "## Types of lossy compression\n",
+    "## Lossy compression standards\n",
     "\n",
     "| Standard       | Introduced | Signal | Transform         | Quantization                   |\n",
     "|----------------|------------|--------|-------------------|--------------------------------|\n",
@@ -438,7 +438,7 @@
    },
    "source": [
     "<p style=\"text-align:center;\">\n",
-    "<img src=\"_images/encodec_architecture\" width=700 height=700 class=\"center\">\n",
+    "<img src=\"_images/encodec_architecture.png\" width=700 height=700 class=\"center\">\n",
     "</p>"
    ]
   },

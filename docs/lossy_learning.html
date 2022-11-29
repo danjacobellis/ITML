@@ -65,16 +65,6 @@
 </ul>
 <p><img alt="" src="_images/conventional.png" /></p>
 </section>
-<section id="low-precision-training">
-<h2>Low precision training<a class="headerlink" href="#low-precision-training" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>bfloat16 (standardized in 2018)</p></li>
-<li><p>FP8 (E4M3 and E5M2, standardized in 2022)</p></li>
-<li><p>Fewer than 8 bits requires radical changes to training procedures</p></li>
-<li><p>Still not able to get any benefits of lossy encodings (1-4 bits per sample)</p></li>
-</ul>
-<p><img alt="" src="_images/gradient_quant.png" /></p>
-</section>
 <section id="training-on-transformed-data">
 <h2>Training on transformed data<a class="headerlink" href="#training-on-transformed-data" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -86,6 +76,16 @@
 <section id="id1">
 <h2>Training on transformed data<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p><img alt="" src="_images/FNNSFJ.png" /></p>
+</section>
+<section id="low-precision-training">
+<h2>Low precision training<a class="headerlink" href="#low-precision-training" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>bfloat16 (standardized in 2018)</p></li>
+<li><p>FP8 (E4M3 and E5M2, standardized in 2022)</p></li>
+<li><p>Fewer than 8 bits requires radical changes to training procedures</p></li>
+<li><p>Still not able to get any benefits of lossy encodings (1-4 bits per sample)</p></li>
+</ul>
+<p><img alt="" src="_images/gradient_quant.png" /></p>
 </section>
 <section id="conventional-approach">
 <h2>Conventional approach<a class="headerlink" href="#conventional-approach" title="Permalink to this headline">¶</a></h2>
@@ -146,8 +146,8 @@
 </li>
 </ul>
 </section>
-<section id="types-of-lossy-compression">
-<h2>Types of lossy compression<a class="headerlink" href="#types-of-lossy-compression" title="Permalink to this headline">¶</a></h2>
+<section id="lossy-compression-standards">
+<h2>Lossy compression standards<a class="headerlink" href="#lossy-compression-standards" title="Permalink to this headline">¶</a></h2>
 <table class="colwidths-auto docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Standard</p></th>
@@ -332,14 +332,14 @@ Networks</a></p>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Lossy Compression and Learning</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#lossy-compression">Lossy compression</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#conventional-training-procedure">Conventional Training Procedure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#low-precision-training">Low precision training</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#training-on-transformed-data">Training on transformed data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id1">Training on transformed data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#low-precision-training">Low precision training</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#conventional-approach">Conventional approach</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#training-on-quantized-data">Training on quantized data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id2">Training on quantized data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#binarized-neural-networks">Binarized neural networks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#types-of-lossy-compression">Types of lossy compression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lossy-compression-standards">Lossy compression standards</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#audio-classification-baseline">Audio classification: baseline</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#audio-classification-vq-bnn">Audio classification: VQ + BNN</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id3">Audio classification: VQ + BNN</a></li>

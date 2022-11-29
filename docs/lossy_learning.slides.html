@@ -14734,36 +14734,6 @@ Dan Jacobellis
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Low-precision-training">Low precision training<a class="anchor-link" href="#Low-precision-training">&#182;</a></h2><ul>
-<li>bfloat16 (standardized in 2018)</li>
-<li>FP8 (E4M3 and E5M2, standardized in 2022)</li>
-<li>Fewer than 8 bits requires radical changes to training procedures</li>
-<li>Still not able to get any benefits of lossy encodings (1-4 bits per sample)</li>
-</ul>
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
-<p style="text-align:center;">
-<img src="_images/conventional.png" width=700 height=700 class="center">
-</p>
-</div>
-</div>
-</div>
-</div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Training-on-transformed-data">Training on transformed data<a class="anchor-link" href="#Training-on-transformed-data">&#182;</a></h2><ul>
 <li>Reduce size and number of initial convolutional layers by training on DCT coefficients</li>
 <li>Input size remains the same (Quantization of transform coefficients ignored)</li>
@@ -14805,6 +14775,36 @@ Dan Jacobellis
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
 <p style="text-align:center;">
 <img src="_images/FNNSFJ.png" width=700 height=700 class="center">
+</p>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Low-precision-training">Low precision training<a class="anchor-link" href="#Low-precision-training">&#182;</a></h2><ul>
+<li>bfloat16 (standardized in 2018)</li>
+<li>FP8 (E4M3 and E5M2, standardized in 2022)</li>
+<li>Fewer than 8 bits requires radical changes to training procedures</li>
+<li>Still not able to get any benefits of lossy encodings (1-4 bits per sample)</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
+<p style="text-align:center;">
+<img src="_images/gradient_quant.png" width=700 height=700 class="center">
 </p>
 </div>
 </div>
@@ -14902,7 +14902,7 @@ Dan Jacobellis
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Types-of-lossy-compression">Types of lossy compression<a class="anchor-link" href="#Types-of-lossy-compression">&#182;</a></h2><table>
+<h2 id="Lossy-compression-standards">Lossy compression standards<a class="anchor-link" href="#Lossy-compression-standards">&#182;</a></h2><table>
 <thead><tr>
 <th>Standard</th>
 <th>Introduced</th>
@@ -15072,7 +15072,7 @@ Dan Jacobellis
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
 <p style="text-align:center;">
-<img src="_images/encodec_architecture" width=700 height=700 class="center">
+<img src="_images/encodec_architecture.png" width=700 height=700 class="center">
 </p>
 </div>
 </div>
