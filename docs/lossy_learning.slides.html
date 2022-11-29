@@ -14677,50 +14677,10 @@ Dan Jacobellis
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Conventional-approach">Conventional approach<a class="anchor-link" href="#Conventional-approach">&#182;</a></h2><ul>
-<li>Consider a classification problem<ul>
-<li>Lossy compressed data (MP3, JPEG): 1-4 bits per sample</li>
-<li>Decoded data: 8-16 bits per sample</li>
-<li>Floating point for training: 32 bits per sample</li>
-</ul>
-</li>
-<li>Still suffers from all of the downsides of lossy compression</li>
-<li>Don't get any of the benefits of smaller representation!</li>
-</ul>
-
-</div>
-</div>
-</div>
-</div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Low-precision-floating-point">Low precision floating point<a class="anchor-link" href="#Low-precision-floating-point">&#182;</a></h2><ul>
-<li>bfloat16 (standardized in 2018)</li>
-<li>FP8 (E4M3 and E5M2, standardized in 2022)</li>
-<li>Fewer than 8 bits requires radical changes to training procedures</li>
-<li>Still not able to get any benefits of lossy encodings (1-4 bits per sample)</li>
-</ul>
-
-</div>
-</div>
-</div>
-</div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Training-on-compressed-data">Training on compressed data<a class="anchor-link" href="#Training-on-compressed-data">&#182;</a></h2><ul>
-<li>Consider the imagenet datasat consisting of JPEG coded images<ul>
-<li>Images are 2-4 bits per pixel after quantization</li>
-<li>about 1.5 bits after entropy coding (RLE and Huffman)</li>
-</ul>
-</li>
+<h2 id="Lossy-compression">Lossy compression<a class="anchor-link" href="#Lossy-compression">&#182;</a></h2><ul>
+<li>Most data are stored using lossy formats (MP3, JPEG)</li>
+<li>1-4 bit subband quantization is typical</li>
+<li>~1.5 bits per sample/pixel after entropy coding</li>
 </ul>
 
 </div>
@@ -14746,14 +14706,54 @@ Dan Jacobellis
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Conventional-approach">Conventional approach<a class="anchor-link" href="#Conventional-approach">&#182;</a></h2><ul>
-<li>Decode image and convert to floating point</li>
-<li>Size of input layer: $224 \times224 \times 3 \times 32$ bits per image</li>
-<li>For batch size of 128:</li>
-<li>13 GB feature memory</li>
-<li>497 GFLOPs</li>
+<h2 id="Conventional-Training-Procedure">Conventional Training Procedure<a class="anchor-link" href="#Conventional-Training-Procedure">&#182;</a></h2><ul>
+<li>Still suffers from all of the downsides of lossy compression</li>
+<li>Don't get any of the benefits of smaller representation!</li>
 </ul>
 
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
+<p style="text-align:center;">
+<img src="_images/conventional.png" width=700 height=700 class="center">
+</p>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Low-precision-training">Low precision training<a class="anchor-link" href="#Low-precision-training">&#182;</a></h2><ul>
+<li>bfloat16 (standardized in 2018)</li>
+<li>FP8 (E4M3 and E5M2, standardized in 2022)</li>
+<li>Fewer than 8 bits requires radical changes to training procedures</li>
+<li>Still not able to get any benefits of lossy encodings (1-4 bits per sample)</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
+<p style="text-align:center;">
+<img src="_images/conventional.png" width=700 height=700 class="center">
+</p>
 </div>
 </div>
 </div>
@@ -14785,14 +14785,44 @@ Dan Jacobellis
 </div>
 </div>
 </div>
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><a href="https://papers.nips.cc/paper/2018/hash/7af6266cc52234b5aa339b16695f7fc4-Abstract.html">Faster Neural networks Straight from JPEG (NIPS 2018)</a></p>
+<h2 id="Training-on-transformed-data">Training on transformed data<a class="anchor-link" href="#Training-on-transformed-data">&#182;</a></h2>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
+<p style="text-align:center;">
+<img src="_images/FNNSFJ.png" width=700 height=700 class="center">
+</p>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Conventional-approach">Conventional approach<a class="anchor-link" href="#Conventional-approach">&#182;</a></h2><ul>
+<li>Decode image and convert to floating point</li>
+<li>Size of input layer: $224 \times224 \times 3 \times 32$ bits per image</li>
+<li>For batch size of 128:</li>
+<li>13 GB feature memory</li>
+<li>497 GFLOPs</li>
+</ul>
 
 </div>
 </div>
@@ -14924,6 +14954,13 @@ Dan Jacobellis
 <td>Learned</td>
 <td>Residual vector quantization</td>
 </tr>
+<tr>
+<td>Encodec</td>
+<td>2022</td>
+<td>Audio</td>
+<td>Learned</td>
+<td>Residual vector quantization</td>
+</tr>
 </tbody>
 </table>
 
@@ -14991,17 +15028,18 @@ Dan Jacobellis
 </div>
 </div>
 </div>
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Audio-classification:-BNN-+-VQ">Audio classification: BNN + VQ<a class="anchor-link" href="#Audio-classification:-BNN-+-VQ">&#182;</a></h2><ul>
+<h2 id="Audio-classification:-VQ-+-BNN">Audio classification: VQ + BNN<a class="anchor-link" href="#Audio-classification:-VQ-+-BNN">&#182;</a></h2><ul>
 <li>Input size: $64 \times 64 \times 4$ binary codes</li>
 <li>3.74 MiB Feature size </li>
 <li>Multiply-accumulate instead of FP<ul>
+<li>4-way MAC unit uses about 55% of the area of a FP16 FPU</li>
 <li>$4-8 \times$ more power efficient compared to bfloat16</li>
 <li>$&gt;20 \times$ more power efficient compared to FP32</li>
 </ul>
@@ -15019,7 +15057,74 @@ Dan Jacobellis
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="References">References<a class="anchor-link" href="#References">&#182;</a></h2>
+<h2 id="Neural-compression-standards">Neural compression standards<a class="anchor-link" href="#Neural-compression-standards">&#182;</a></h2><ul>
+<li>Soundstream (Google, 2021) and Encodec (Meta, 2022)</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput  celltag_remove-cell" data-mime-type="text/markdown">
+<p style="text-align:center;">
+<img src="_images/encodec_architecture" width=700 height=700 class="center">
+</p>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Audio-classification:-Neural-Compression-+-BNN">Audio classification: Neural Compression + BNN<a class="anchor-link" href="#Audio-classification:-Neural-Compression-+-BNN">&#182;</a></h2><table>
+<thead><tr>
+<th><audio controls="controls"><source src="./_static/left01.wav" type="audio/wav"></audio></th>
+<th><audio controls="controls"><source src="./_static/right01.wav" type="audio/wav"></audio></th>
+<th><audio controls="controls"><source src="./_static/yes01.wav" type="audio/wav"></audio></th>
+<th><audio controls="controls"><source src="./_static/no01.wav" type="audio/wav"></audio></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><audio controls="controls"><source src="./_static/left01_ecdc.wav" type="audio/wav"></audio></td>
+<td><audio controls="controls"><source src="./_static/right01_ecdc.wav" type="audio/wav"></audio></td>
+<td><audio controls="controls"><source src="./_static/yes01_ecdc.wav" type="audio/wav"></audio></td>
+<td><audio controls="controls"><source src="./_static/no01_ecdc.wav" type="audio/wav"></audio></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Input size: $8 \times 75 \times 10$ binary codes</li>
+<li>1.67 MiB Feature size </li>
+<li>111M MACs per pass</li>
+<li>Test accuracy of 58%</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="References">References<a class="anchor-link" href="#References">&#182;</a></h2><p><a href="https://papers.nips.cc/paper/2018/hash/7af6266cc52234b5aa339b16695f7fc4-Abstract.html">Faster Neural Networks Straight from JPEG</a></p>
+<p><a href="https://openaccess.thecvf.com/content_ICCV_2019/html/Ehrlich_Deep_Residual_Learning_in_the_JPEG_Transform_Domain_ICCV_2019_paper.html">Deep Residual Learning in the JPEG Transform Domain</a></p>
+<p><a href="https://proceedings.neurips.cc/paper/2020/file/13b919438259814cd5be8cb45877d577-Paper.pdf">Ultra-Low Precision 4-bit Training of Deep Neural
+Networks</a></p>
+<p><a href="https://proceedings.neurips.cc/paper/2016/hash/d8330f857a17c53d217014ee776bfd50-Abstract.html">Binarized Neural Networks</a></p>
+<p><a href="https://github.com/albanie/convnet-burden/blob/master/reports/resnet-50.md">Estimates of memory consumption and FLOP counts for various convolutional neural networks</a></p>
+
 </div>
 </div>
 </div>

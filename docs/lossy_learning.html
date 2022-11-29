@@ -48,50 +48,32 @@
   <section class="tex2jax_ignore mathjax_ignore" id="lossy-compression-and-learning">
 <h1>Lossy Compression and Learning<a class="headerlink" href="#lossy-compression-and-learning" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="https://danjacobellis.github.io/ITML/lossy_learning.slides.html">Slides</a></p>
-<section id="conventional-approach">
-<h2>Conventional approach<a class="headerlink" href="#conventional-approach" title="Permalink to this headline">¶</a></h2>
+<section id="lossy-compression">
+<h2>Lossy compression<a class="headerlink" href="#lossy-compression" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Consider a classification problem</p>
-<ul>
-<li><p>Lossy compressed data (MP3, JPEG): 1-4 bits per sample</p></li>
-<li><p>Decoded data: 8-16 bits per sample</p></li>
-<li><p>Floating point for training: 32 bits per sample</p></li>
+<li><p>Most data are stored using lossy formats (MP3, JPEG)</p></li>
+<li><p>1-4 bit subband quantization is typical</p></li>
+<li><p>~1.5 bits per sample/pixel after entropy coding</p></li>
 </ul>
-</li>
+<p><img alt="" src="_images/lossy_lossless.png" /></p>
+</section>
+<section id="conventional-training-procedure">
+<h2>Conventional Training Procedure<a class="headerlink" href="#conventional-training-procedure" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
 <li><p>Still suffers from all of the downsides of lossy compression</p></li>
 <li><p>Don’t get any of the benefits of smaller representation!</p></li>
 </ul>
+<p><img alt="" src="_images/conventional.png" /></p>
 </section>
-<section id="low-precision-floating-point">
-<h2>Low precision floating point<a class="headerlink" href="#low-precision-floating-point" title="Permalink to this headline">¶</a></h2>
+<section id="low-precision-training">
+<h2>Low precision training<a class="headerlink" href="#low-precision-training" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>bfloat16 (standardized in 2018)</p></li>
 <li><p>FP8 (E4M3 and E5M2, standardized in 2022)</p></li>
 <li><p>Fewer than 8 bits requires radical changes to training procedures</p></li>
 <li><p>Still not able to get any benefits of lossy encodings (1-4 bits per sample)</p></li>
 </ul>
-</section>
-<section id="training-on-compressed-data">
-<h2>Training on compressed data<a class="headerlink" href="#training-on-compressed-data" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>Consider the imagenet datasat consisting of JPEG coded images</p>
-<ul>
-<li><p>Images are 2-4 bits per pixel after quantization</p></li>
-<li><p>about 1.5 bits after entropy coding (RLE and Huffman)</p></li>
-</ul>
-</li>
-</ul>
-<p><img alt="" src="_images/lossy_lossless.png" /></p>
-</section>
-<section id="id1">
-<h2>Conventional approach<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>Decode image and convert to floating point</p></li>
-<li><p>Size of input layer: <span class="math notranslate nohighlight">\(224 \times224 \times 3 \times 32\)</span> bits per image</p></li>
-<li><p>For batch size of 128:</p></li>
-<li><p>13 GB feature memory</p></li>
-<li><p>497 GFLOPs</p></li>
-</ul>
+<p><img alt="" src="_images/gradient_quant.png" /></p>
 </section>
 <section id="training-on-transformed-data">
 <h2>Training on transformed data<a class="headerlink" href="#training-on-transformed-data" title="Permalink to this headline">¶</a></h2>
@@ -100,7 +82,20 @@
 <li><p>Input size remains the same (Quantization of transform coefficients ignored)</p></li>
 </ul>
 <p><img alt="" src="_images/dct_vs_resnet.png" /></p>
-<p><a class="reference external" href="https://papers.nips.cc/paper/2018/hash/7af6266cc52234b5aa339b16695f7fc4-Abstract.html">Faster Neural networks Straight from JPEG (NIPS 2018)</a></p>
+</section>
+<section id="id1">
+<h2>Training on transformed data<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p><img alt="" src="_images/FNNSFJ.png" /></p>
+</section>
+<section id="conventional-approach">
+<h2>Conventional approach<a class="headerlink" href="#conventional-approach" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Decode image and convert to floating point</p></li>
+<li><p>Size of input layer: <span class="math notranslate nohighlight">\(224 \times224 \times 3 \times 32\)</span> bits per image</p></li>
+<li><p>For batch size of 128:</p></li>
+<li><p>13 GB feature memory</p></li>
+<li><p>497 GFLOPs</p></li>
+</ul>
 </section>
 <section id="training-on-quantized-data">
 <h2>Training on quantized data<a class="headerlink" href="#training-on-quantized-data" title="Permalink to this headline">¶</a></h2>
@@ -116,7 +111,6 @@
 <li><p>How do we “replace” several low-precision inputs with a single high precision input?</p></li>
 <li><p>Doesn’t even work for most codecs since each subband has different quantization!</p></li>
 </ul>
-<p><a class="reference external" href="https://github.com/albanie/convnet-burden/blob/master/reports/resnet-50.md">resnet 50 reference</a></p>
 </section>
 <section id="id2">
 <h2>Training on quantized data<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
@@ -200,6 +194,12 @@
 <td><p>Learned</p></td>
 <td><p>Residual vector quantization</p></td>
 </tr>
+<tr class="row-even"><td><p>Encodec</p></td>
+<td><p>2022</p></td>
+<td><p>Audio</p></td>
+<td><p>Learned</p></td>
+<td><p>Residual vector quantization</p></td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -250,23 +250,61 @@
 </tbody>
 </table>
 </section>
-<section id="audio-classification-bnn-vq">
-<h2>Audio classification: BNN + VQ<a class="headerlink" href="#audio-classification-bnn-vq" title="Permalink to this headline">¶</a></h2>
+<section id="id3">
+<h2>Audio classification: VQ + BNN<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Input size: <span class="math notranslate nohighlight">\(64 \times 64 \times 4\)</span> binary codes</p></li>
 <li><p>3.74 MiB Feature size</p></li>
 <li><p>Multiply-accumulate instead of FP</p>
 <ul>
+<li><p>4-way MAC unit uses about 55% of the area of a FP16 FPU</p></li>
 <li><p><span class="math notranslate nohighlight">\(4-8 \times\)</span> more power efficient compared to bfloat16</p></li>
 <li><p><span class="math notranslate nohighlight">\(&gt;20 \times\)</span> more power efficient compared to FP32</p></li>
 </ul>
 </li>
 <li><p>Achieves test accuracy of about 79% (baseline:84%)</p></li>
 </ul>
-<p><a class="reference external" href="https://proceedings.neurips.cc/paper/2020/file/13b919438259814cd5be8cb45877d577-Paper.pdf">IBM 4-bit</a></p>
+</section>
+<section id="neural-compression-standards">
+<h2>Neural compression standards<a class="headerlink" href="#neural-compression-standards" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Soundstream (Google, 2021) and Encodec (Meta, 2022)</p></li>
+</ul>
+<p><img alt="" src="_images/encodec_architecture.png" /></p>
+</section>
+<section id="audio-classification-neural-compression-bnn">
+<h2>Audio classification: Neural Compression + BNN<a class="headerlink" href="#audio-classification-neural-compression-bnn" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p><audio controls="controls"><source src="./_static/left01.wav" type="audio/wav"></audio></p></th>
+<th class="head"><p><audio controls="controls"><source src="./_static/right01.wav" type="audio/wav"></audio></p></th>
+<th class="head"><p><audio controls="controls"><source src="./_static/yes01.wav" type="audio/wav"></audio></p></th>
+<th class="head"><p><audio controls="controls"><source src="./_static/no01.wav" type="audio/wav"></audio></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><audio controls="controls"><source src="./_static/left01_ecdc.wav" type="audio/wav"></audio></p></td>
+<td><p><audio controls="controls"><source src="./_static/right01_ecdc.wav" type="audio/wav"></audio></p></td>
+<td><p><audio controls="controls"><source src="./_static/yes01_ecdc.wav" type="audio/wav"></audio></p></td>
+<td><p><audio controls="controls"><source src="./_static/no01_ecdc.wav" type="audio/wav"></audio></p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>Input size: <span class="math notranslate nohighlight">\(8 \times 75 \times 10\)</span> binary codes</p></li>
+<li><p>1.67 MiB Feature size</p></li>
+<li><p>111M MACs per pass</p></li>
+<li><p>Test accuracy of 58%</p></li>
+</ul>
 </section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://papers.nips.cc/paper/2018/hash/7af6266cc52234b5aa339b16695f7fc4-Abstract.html">Faster Neural Networks Straight from JPEG</a></p>
+<p><a class="reference external" href="https://openaccess.thecvf.com/content_ICCV_2019/html/Ehrlich_Deep_Residual_Learning_in_the_JPEG_Transform_Domain_ICCV_2019_paper.html">Deep Residual Learning in the JPEG Transform Domain</a></p>
+<p><a class="reference external" href="https://proceedings.neurips.cc/paper/2020/file/13b919438259814cd5be8cb45877d577-Paper.pdf">Ultra-Low Precision 4-bit Training of Deep Neural
+Networks</a></p>
+<p><a class="reference external" href="https://proceedings.neurips.cc/paper/2016/hash/d8330f857a17c53d217014ee776bfd50-Abstract.html">Binarized Neural Networks</a></p>
+<p><a class="reference external" href="https://github.com/albanie/convnet-burden/blob/master/reports/resnet-50.md">Estimates of memory consumption and FLOP counts for various convolutional neural networks</a></p>
 </section>
 </section>
 
@@ -292,18 +330,21 @@
 <li class="toctree-l1"><a class="reference internal" href="discrete_representation_learning.html">Discrete Representation Learning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="milestone.html">Compressed Learning</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Lossy Compression and Learning</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#conventional-approach">Conventional approach</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#low-precision-floating-point">Low precision floating point</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#training-on-compressed-data">Training on compressed data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">Conventional approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lossy-compression">Lossy compression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#conventional-training-procedure">Conventional Training Procedure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#low-precision-training">Low precision training</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#training-on-transformed-data">Training on transformed data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Training on transformed data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#conventional-approach">Conventional approach</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#training-on-quantized-data">Training on quantized data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id2">Training on quantized data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#binarized-neural-networks">Binarized neural networks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#types-of-lossy-compression">Types of lossy compression</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#audio-classification-baseline">Audio classification: baseline</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#audio-classification-vq-bnn">Audio classification: VQ + BNN</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#audio-classification-bnn-vq">Audio classification: BNN + VQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">Audio classification: VQ + BNN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#neural-compression-standards">Neural compression standards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#audio-classification-neural-compression-bnn">Audio classification: Neural Compression + BNN</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
 </ul>
 </li>
