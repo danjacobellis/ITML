@@ -122,7 +122,7 @@
 <h2>Training on quantized data<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>How do we “replace” several low-precision inputs with a single high precision input?</p></li>
-<li><p>Naive approach: <span class="math notranslate nohighlight">\(y = (x_1) + (x2 &lt;&lt; 2) + (x2 &lt;&lt; 4) (x2 &lt;&lt; 6)\)</span></p>
+<li><p>Naive approach: <span class="math notranslate nohighlight">\(y = (x_1) + (x2 &lt;&lt; 2) + (x2 &lt;&lt; 4) + (x2 &lt;&lt; 6)\)</span></p>
 <ul>
 <li><p>Won’t work for most codecs since each subband has different quantization</p></li>
 <li><p>Amounts to creating a categorical variable</p></li>

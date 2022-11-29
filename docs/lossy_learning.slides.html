@@ -14862,7 +14862,7 @@ Dan Jacobellis
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Training-on-quantized-data">Training on quantized data<a class="anchor-link" href="#Training-on-quantized-data">&#182;</a></h2><ul>
 <li>How do we "replace" several low-precision inputs with a single high precision input?</li>
-<li>Naive approach: $y = (x_1) + (x2 &lt;&lt; 2) + (x2 &lt;&lt; 4) (x2 &lt;&lt; 6)$<ul>
+<li>Naive approach: $y = (x_1) + (x2 &lt;&lt; 2) + (x2 &lt;&lt; 4) + (x2 &lt;&lt; 6)$<ul>
 <li>Won't work for most codecs since each subband has different quantization</li>
 <li>Amounts to creating a categorical variable</li>
 <li>Standard approach to training on categorical variable is to one-hot encode<ul>
