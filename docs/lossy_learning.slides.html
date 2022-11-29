@@ -14841,14 +14841,13 @@ Dan Jacobellis
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Training-on-quantized-data">Training on quantized data<a class="anchor-link" href="#Training-on-quantized-data">&#182;</a></h2><ul>
 <li>Each transform coefficient only contains about 2 bits instead of 8</li>
-<li>"Replace" each 2x2 blocks of 2-bit transform coefficients with a single high precision input<ul>
+<li>"Replace" each 2x2 block of 2-bit transform coefficients with a single high precision input<ul>
 <li>Size of input layer: $112 \times 112 \times 3 \times 32$ bits per image</li>
 <li>3 GB Feature memory (down from 13)</li>
 <li>131 GFLOPs per pass (down from 497)</li>
 </ul>
 </li>
 <li>How do we "replace" several low-precision inputs with a single high precision input?</li>
-<li>Doesn't even work for most codecs since each subband has different quantization!</li>
 </ul>
 
 </div>
@@ -14864,9 +14863,10 @@ Dan Jacobellis
 <h2 id="Training-on-quantized-data">Training on quantized data<a class="anchor-link" href="#Training-on-quantized-data">&#182;</a></h2><ul>
 <li>How do we "replace" several low-precision inputs with a single high precision input?</li>
 <li>Naive approach: $y = (x_1) + (x2 &lt;&lt; 2) + (x2 &lt;&lt; 4) (x2 &lt;&lt; 6)$<ul>
+<li>Won't work for most codecs since each subband has different quantization</li>
 <li>Amounts to creating a categorical variable</li>
 <li>Standard approach to training on categorical variable is to one-hot encode<ul>
-<li>We're back to where we started!</li>
+<li>We're back to where we started!    </li>
 </ul>
 </li>
 </ul>
@@ -14884,7 +14884,7 @@ Dan Jacobellis
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Binarized-neural-networks">Binarized neural networks<a class="anchor-link" href="#Binarized-neural-networks">&#182;</a></h2><ul>
-<li>Proposed in 2016 to reduce memory consumption</li>
+<li>Proposed in 2016 as a way to reduce memory consumption</li>
 <li>Replace some floating point arithmetic with bit-wise operations<ul>
 <li>Binary Weight Network (BWN): only the kernels are quantized</li>
 <li>Binary Activation Network (BAN): only the inputs are binarized</li>
@@ -14981,7 +14981,7 @@ Dan Jacobellis
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Audio-classification:-baseline">Audio classification: baseline<a class="anchor-link" href="#Audio-classification:-baseline">&#182;</a></h2><ul>
 <li>Dataset: Speech commands<ul>
-<li>one second speech segments of 8 possible words</li>
+<li>One second speech segments of 8 possible words</li>
 <li>'stop,' 'down,' 'no,' 'right,' 'go,' 'up,' 'yes,' 'left'</li>
 </ul>
 </li>
@@ -15042,14 +15042,14 @@ Dan Jacobellis
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Audio-classification:-VQ-+-BNN">Audio classification: VQ + BNN<a class="anchor-link" href="#Audio-classification:-VQ-+-BNN">&#182;</a></h2><ul>
 <li>Input size: $64 \times 64 \times 4$ binary codes</li>
-<li>3.74 MiB Feature size </li>
+<li>3.74 MiB feature size </li>
 <li>Multiply-accumulate instead of FP<ul>
 <li>4-way MAC unit uses about 55% of the area of a FP16 FPU</li>
 <li>$4-8 \times$ more power efficient compared to bfloat16</li>
 <li>$&gt;20 \times$ more power efficient compared to FP32</li>
 </ul>
 </li>
-<li>Achieves test accuracy of about 79% (baseline:84%)</li>
+<li>Achieves test accuracy of about 79% (down from baseline of 84%)</li>
 </ul>
 
 </div>
