@@ -5,6 +5,13 @@ import scipy as sp
 import tensorflow as tf
 from tensorflow.keras import layers
 from tensorflow.keras import models
+from IPython import display
+
+def slog(x):
+    return np.log(1+np.abs(x))*np.sign(x)
+
+def ulog(x):
+    return np.log(1+np.abs(x))
 
 def STFT(x):
     X = np.fft.rfft(np.reshape(x,(64,254)),axis=1)
@@ -21,6 +28,52 @@ def ISTFT(X):
 
 def play_audio(x):
     return display.Audio(np.reshape(x,-1), rate=16000)
+
+def im2col(x):
+    shape = np.shape(x)
+    y = np.zeros((shape[0]//2,shape[1]//2,4))
+    for i1 in range(shape[0]//2):
+        for i2 in range(shape[1]//2):
+            block = x[2*i1:2*i1+2,2*i2:2*i2+2]
+            y[i1,i2,:] = np.reshape(block,-1)
+    return y
+
+def col2im(x):
+    shape = np.shape(x)
+    y = np.zeros((2*shape[0],2*shape[1]))
+    for i1 in range(shape[0]):
+        for i2 in range(shape[1]):
+            block = np.reshape(x[i1,i2,:],(2,2))
+            y[2*i1:2*i1+2,2*i2:2*i2+2] = block
+    return y
+
+def VQ_encode(x,codebook):
+    v = np.reshape(im2col(STFT(x)),(64*64,4))
+    v_hat, _ = sp.cluster.vq.vq(v,codebook)
+    # return v_hat.astype('int8')
+    return binarize(v_hat.astype('int8'))
+
+def VQ_encode_STFT(X,codebook):
+    v = np.reshape(im2col(X),(64*64,4))
+    v_hat, _ = sp.cluster.vq.vq(v,codebook)
+    # return v_hat.astype('int8')
+    return binarize(v_hat.astype('int8'))
+
+def VQ_decode(b,codebook):
+    x = serialize(b)
+    return ISTFT(col2im(np.reshape(codebook[x],(64,64,4))))
+
+def VQ_decode_STFT(b,codebook):
+    x = serialize(b)
+    return col2im(np.reshape(codebook[x],(64,64,4)))
+
+def binarize(v_hat):
+    v_hat = np.reshape(v_hat,(64,64))
+    v_hat = np.expand_dims(v_hat,2)
+    return np.concatenate((v_hat&1,v_hat>>1&1,v_hat>>2&1,v_hat>>3&1),axis=2)
+
+def serialize(b):
+    return np.reshape(b[:,:,0] + (b[:,:,1]<<1) + (b[:,:,2]<<2) + (b[:,:,3]<<3),-1)
 
 def load_mini_speech_commands():
     DATASET_PATH = 'data/mini_speech_commands'
@@ -56,9 +109,5 @@ def load_mini_speech_commands():
     Xv = np.vstack(Xv)
     yv = np.vstack(yv)
     
-    # X = np.vstack([np.expand_dims(STFT(x),0) for x,_ in train_ds])
-    # y = np.vstack([y for _,y in train_ds])
-    # Xv = np.vstack([np.expand_dims(STFT(x),0) for x,_ in val_ds])
-    # yv = np.vstack([y for _,y in val_ds])
-    
     return X, y, Xv, yv
+
